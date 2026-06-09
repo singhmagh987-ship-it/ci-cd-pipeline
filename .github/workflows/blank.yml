@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-java@v5.2.0
         with:
           java-version: '26'
+          distribution: 'temurin'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
