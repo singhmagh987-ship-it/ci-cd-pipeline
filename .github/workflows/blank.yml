@@ -42,5 +42,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Run tests Only
-        run: mvn test
+      - name: Run tests with Gradle
+        run: cd CICD-Demo && ./gradlew test
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v7.0.1
