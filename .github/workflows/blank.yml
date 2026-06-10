@@ -78,7 +78,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/springboot-products:latest
     
   Deploy-EKS:
-    needs: build
+    needs: build-push-docker
     runs-on: ubuntu-latest
 
     steps:
