@@ -85,12 +85,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v5.2.0
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          java-version: '26'
-          distribution: 'temurin'
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      - name: Run Gradle Assemble
-        run: cd CICD-Demo && chmod +x gradlew && ./gradlew assemble
+      # - name: Update kubeconfig
+      #   run: aws eks update-kubeconfig --name your-cluster-name --region us-east-1
+
+      - name: Deploy Service
+        run: cd CICD-Demo/K8s && kubectl apply -f service.yaml
+
+      - name: Deploy Application
+        run: cd CICD-Demo/K8s && kubectl apply -f deployment.yaml
+
+      - name: Verify Pods
+        run: kubectl get pods
 
