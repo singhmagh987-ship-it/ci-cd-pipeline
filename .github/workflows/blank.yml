@@ -44,6 +44,7 @@ jobs:
           path: .
 
   build:
+    needs: Unit-Tests
     runs-on: ubuntu-latest
 
     steps:
