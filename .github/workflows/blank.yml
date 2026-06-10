@@ -94,6 +94,10 @@ jobs:
 
       # - name: Update kubeconfig
       #   run: aws eks update-kubeconfig --name your-cluster-name --region us-east-1
+      # kubectl config current-context
+
+      - name: Current Context
+        run: kubectl config current-context
 
       - name: Deploy Service
         run: cd CICD-Demo/K8s && kubectl apply -f service.yaml
