@@ -6,13 +6,6 @@ metadata:
   name: spring-boot-products
   namespace: default
 spec:
-  clusterIP: 10.110.61.117
-  clusterIPs:
-  - 10.110.61.117
-  internalTrafficPolicy: Cluster
-  ipFamilies:
-  - IPv4
-  ipFamilyPolicy: SingleStack
   ports:
   - port: 8080
     protocol: TCP
