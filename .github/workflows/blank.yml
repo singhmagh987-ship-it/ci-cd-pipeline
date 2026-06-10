@@ -92,9 +92,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # - name: Update kubeconfig
-      #   run: aws eks update-kubeconfig --name your-cluster-name --region us-east-1
-      # kubectl config current-context
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name my-first-cluster --region us-east-1
 
       - name: Current Context
         run: kubectl config current-context
