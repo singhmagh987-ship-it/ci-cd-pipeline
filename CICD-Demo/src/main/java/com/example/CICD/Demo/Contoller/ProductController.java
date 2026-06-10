@@ -28,7 +28,36 @@ public class ProductController {
     @GetMapping("/server/config")
     public Map<String, String> getServerConfig() {
         Map<String, String> config = new LinkedHashMap<>();
+        config.put("podName", getEnv("POD_NAME", getEnv("HOSTNAME", "unknown")));
+        config.put("containerId", getEnv("CONTAINER_ID", getContainerIdFromProc()));
         return config;
+    }
+
+    private String getEnv(String name, String fallback) {
+        String value = System.getenv(name);
+        return value != null && !value.isEmpty() ? value : fallback;
+    }
+
+    private String getContainerIdFromProc() {
+        File file = new File("/proc/self/cgroup");
+        if (!file.exists()) {
+            return "unknown";
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                int idx = line.lastIndexOf('/');
+                if (idx >= 0 && idx + 1 < line.length()) {
+                    String candidate = line.substring(idx + 1).trim();
+                    if (!candidate.isEmpty()) {
+                        return candidate;
+                    }
+                }
+            }
+        } catch (IOException ignored) {
+        }
+        return "unknown";
     }
 
 }

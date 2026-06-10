@@ -76,3 +76,21 @@ jobs:
           file: ./CICD-Demo/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/springboot-products:latest
+    
+  Deploy-EKS:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v5.2.0
+        with:
+          java-version: '26'
+          distribution: 'temurin'
+
+      - name: Run Gradle Assemble
+        run: cd CICD-Demo && chmod +x gradlew && ./gradlew assemble
+
