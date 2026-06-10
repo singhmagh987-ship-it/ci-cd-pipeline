@@ -18,7 +18,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  Unit-Tests:
+  Run-Unit-Tests:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -43,8 +43,8 @@ jobs:
           name: my-artifact-name
           path: .
 
-  build:
-    needs: Unit-Tests
+  build-push-docker:
+    needs: Run-Unit-Tests
     runs-on: ubuntu-latest
 
     steps:
