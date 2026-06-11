@@ -3,13 +3,11 @@ kind: Deployment
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
-  creationTimestamp: "2026-06-10T10:15:53Z"
   generation: 1
   labels:
     app: spring-boot-products
   name: spring-boot-products
   namespace: default
-  resourceVersion: "2331"
 spec:
   replicas: 3
   revisionHistoryLimit: 10
@@ -47,22 +45,3 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 3
-  conditions:
-  - lastTransitionTime: "2026-06-10T10:16:02Z"
-    lastUpdateTime: "2026-06-10T10:16:02Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2026-06-10T10:15:53Z"
-    lastUpdateTime: "2026-06-10T10:16:02Z"
-    message: ReplicaSet "spring-boot-products-5cb5bc4dd6" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 1
-  readyReplicas: 3
-  replicas: 3
-  updatedReplicas: 3
