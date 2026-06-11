@@ -56,6 +56,7 @@ Test Code → Build & Push Docker → Deploy to EKS
 ## Troubleshooting
 [common issues]
 1. Deploy-EKS job failed - Process completed with exit code 254.
+<img width="1630" height="742" alt="image" src="https://github.com/user-attachments/assets/46a79d09-d1f4-4953-98da-f84f5ffdf880" />
 
 Run aws eks update-kubeconfig --name my-first-cluster --region us-east-1
 
