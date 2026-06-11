@@ -26,12 +26,10 @@ spec:
       labels:
         app: spring-boot-products
     spec:
-    imagePullSecrets:
-      - name: ecr-secret  # to fetch the image from the AWS ECR secret created
       containers:
-      - image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/singhmagh:latest
+      - image: singhmagh/springboot-products
         imagePullPolicy: Always
-        name: latest
+        name: springboot-products
         env:
         - name: POD_NAMESPACE
           valueFrom:
