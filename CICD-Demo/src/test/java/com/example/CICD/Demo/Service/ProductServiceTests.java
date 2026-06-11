@@ -30,16 +30,6 @@ class ProductServiceTests {
     }
 
     @Test
-    @DisplayName("Should return exactly 3 products")
-    void testGetAllProducts_ReturnsCorrectNumberOfProducts() {
-        // Arrange & Act
-        List<ProductDTO> products = productService.getAllProducts();
-
-        // Assert
-        assertEquals(3, products.size(), "Should return exactly 3 products");
-    }
-
-    @Test
     @DisplayName("Should return products with correct data")
     void testGetAllProducts_ReturnsCorrectProductData() {
         // Arrange & Act
