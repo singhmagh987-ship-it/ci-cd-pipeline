@@ -84,7 +84,7 @@ jobs:
           account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           repo: singhmagh
           region: us-east-1
-          tags: springboot-products:latest
+          tags: latest
           dockerfile: Dockerfile
           path: ./CICD-Demo
 
