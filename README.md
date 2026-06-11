@@ -135,4 +135,4 @@ Run aws eks update-kubeconfig --name my-first-cluster --region us-east-1
 
 Error: aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the DescribeCluster operation: No cluster found for name: my-first-cluster
 
-Solution : Refer the Quick start section and create your own Kubernetes cluster.
+**Solution** : Refer the Quick start section and create your own Kubernetes cluster.
