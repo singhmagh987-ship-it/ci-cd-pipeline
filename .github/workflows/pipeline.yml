@@ -60,49 +60,49 @@ jobs:
       - name: Run Gradle Assemble
         run: cd CICD-Demo && chmod +x gradlew && ./gradlew assemble
 
-      #- name: Set up Docker Buildx
-      #  uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+           username: ${{ secrets.DOCKER_USERNAME }}
+           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # Configure AWS Credentials for ECR access - 
       # Changed from Docker Hub to AWS ECR for image storage and deployment
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      #- name: Configure AWS Credentials
+      #  uses: aws-actions/configure-aws-credentials@v4
+      #  with:
+      #    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   aws-region: us-east-1
 
       # Login to AWS ECR
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      #- name: Login to Amazon ECR
+      #  id: login-ecr
+      #  uses: aws-actions/amazon-ecr-login@v2
 
- # Changed from Docker Hub to AWS ECR for image storage and deployment
-      # - name: Build and Push Docker Image
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: ./CICD-Demo
-      #     file: ./CICD-Demo/Dockerfile
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/springboot-products:latest
-
-      - name: AWS ECR
-        uses: kciter/aws-ecr-action@v5
+ # Use below for Docker Hub image storage and deployment
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
         with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-          repo: singhmagh
-          region: us-east-1
-          tags: latest
-          dockerfile: ./CICD-Demo/Dockerfile
-          path: ./CICD-Demo
+           context: ./CICD-Demo
+           file: ./CICD-Demo/Dockerfile
+           push: true
+           tags: ${{ secrets.DOCKER_USERNAME }}/springboot-products:latest
+# Use below for AWS ECR for image storage and deployment
+     # - name: AWS ECR
+     #   uses: kciter/aws-ecr-action@v5
+     #   with:
+     #    access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+     #    secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+     #    account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+     #   repo: singhmagh
+     #   region: us-east-1
+     #   tags: latest
+     #  dockerfile: ./CICD-Demo/Dockerfile
+     #   path: ./CICD-Demo
     
   Deploy-EKS:
     needs: build-push-docker
