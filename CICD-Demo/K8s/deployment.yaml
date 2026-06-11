@@ -27,9 +27,9 @@ spec:
         app: spring-boot-products
     spec:
       containers:
-      - image: singhmagh/springboot-products
+      - image: singhmagh
         imagePullPolicy: Always
-        name: springboot-products
+        name: latest
         env:
         - name: POD_NAMESPACE
           valueFrom:
