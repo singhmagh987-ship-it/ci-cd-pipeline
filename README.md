@@ -40,6 +40,37 @@ A complete CI/CD implementation deploying a Spring Boot microservice to AWS EKS 
 ## Architecture
 [diagram or description]
 
+
+### Architecture Components
+
+### Data Flow
+1. Developer pushes code to GitHub
+2. GitHub Actions workflow triggers automatically
+3. Code is tested, built, and containerized
+4. Docker image pushed to Docker hub registry
+5. Kubernetes deployment YAML applied to EKS cluster
+6. Pods download image and start running
+7. Service load balancer routes external requests to pods
+8. API responds with product data and pod information
+
+### Technologies Used
+- **Spring Boot**: REST API framework (Java 26)
+- **Docker**: Container runtime
+- **Kubernetes (EKS)**: Container orchestration on AWS
+- **GitHub Actions**: CI/CD automation
+- **AWS**: Infrastructure provider (EKS, EC2, ALB)
+- **kubectl**: Kubernetes command-line tool
+- **eksctl**: AWS EKS cluster management tool
+
+## API Endpoints
+
+### 1. Get All Products with Pod Information
+**Endpoint:** `GET /products`
+
+**Description:** Returns a list of all products along with the Kubernetes pod name and namespace where the request was processed.
+
+**Local Testing:**
+
 ## API Endpoints
 
 ### 1. Get All Products with Pod Information
@@ -56,6 +87,8 @@ http://localhost:8080/products
 ```
 http://<service-load-balancer-url>:8080/products
 ```
+<img width="1477" height="260" alt="image" src="https://github.com/user-attachments/assets/63fef5b5-0be3-4b50-b794-58035744cfb5" />
+
 
 **Response Example:**
 ```json
@@ -133,4 +166,4 @@ Run aws eks update-kubeconfig --name my-first-cluster --region us-east-1
 
 Error: aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the DescribeCluster operation: No cluster found for name: my-first-cluster
 
-Solution : Refer the Quick start section and create your own Kubernetes cluster.
+**Solution** : Refer the Quick start section and create your own Kubernetes cluster.
