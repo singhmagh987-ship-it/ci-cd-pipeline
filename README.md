@@ -41,7 +41,10 @@ A complete CI/CD implementation deploying a Spring Boot microservice to AWS EKS 
 [diagram or description]
 
 ## API Endpoints
-[documentation]
+
+http://localhost:8080/products (for local testing)
+
+http://{{$serviceLoadBalancerURL}}:8080/products (cloud)
 
 ## Deployment
 [how the pipeline works]
