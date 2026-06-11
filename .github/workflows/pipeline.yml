@@ -119,18 +119,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Used to create an secret for ECR --Added to point to the image stored in the AWS ECR
-      - name: Create ECR ImagePullSecret
-        run: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
-          kubectl create secret docker-registry ecr-secret \
-            --docker-server=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com \
-            --docker-username=AWS \
-            --docker-password=$(aws ecr get-login-password --region us-east-1) \
-            --docker-email=user@example.com \
-            --namespace=default \
-            --dry-run=client -o yaml | kubectl apply -f -
-
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name my-first-cluster --region us-east-1
 
