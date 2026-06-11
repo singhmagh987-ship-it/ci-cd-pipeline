@@ -46,5 +46,9 @@ A complete CI/CD implementation deploying a Spring Boot microservice to AWS EKS 
 ## Deployment
 [how the pipeline works]
 
+Test Code → Build & Push Docker → Deploy to EKS
+   ✓           ✓                    ✓
+ (Gradle)    (Docker Image)    (Kubernetes)
+
 ## Troubleshooting
 [common issues]
