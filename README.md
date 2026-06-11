@@ -10,6 +10,7 @@ A complete CI/CD implementation deploying a Spring Boot microservice to AWS EKS 
 
 ## Prerequisites
 - Java 26
+- Spring Boot 4.1.0
 - Docker
 - kubectl
 - AWS account with EKS cluster
