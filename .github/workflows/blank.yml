@@ -60,8 +60,8 @@ jobs:
       - name: Run Gradle Assemble
         run: cd CICD-Demo && chmod +x gradlew && ./gradlew assemble
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      #- name: Set up Docker Buildx
+      #  uses: docker/setup-buildx-action@v3
 
       # Configure AWS Credentials for ECR access
       - name: Configure AWS Credentials
@@ -73,18 +73,22 @@ jobs:
 
       # Login to AWS ECR
       - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Docker Image to ECR
-        uses: docker/build-push-action@v5
+      - name: AWS ECR
+        uses: kciter/aws-ecr-action@v5
         with:
-          context: ./CICD-Demo
-          file: ./CICD-Demo/Dockerfile
-          push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/springboot-products:latest
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          repo: singhmagh
+          region: us-east-1
+          tags: springboot-products:latest
+          dockerfile: Dockerfile
+          path: ./CICD-Demo
 
-      # ========================================================================
-      # REMOVED: Docker Hub Registry Login and Push
+    
       # Changed from Docker Hub to AWS ECR for image storage and deployment
       # Previously used docker/login-action@v3 and docker/build-push-action@v5
       # with Docker Hub credentials. Now using AWS ECR via aws-actions plugin.
@@ -101,7 +105,6 @@ jobs:
       #     file: ./CICD-Demo/Dockerfile
       #     push: true
       #     tags: ${{ secrets.DOCKER_USERNAME }}/springboot-products:latest
-      # ========================================================================
     
   Deploy-EKS:
     needs: build-push-docker
