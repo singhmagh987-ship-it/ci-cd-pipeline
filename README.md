@@ -42,9 +42,82 @@ A complete CI/CD implementation deploying a Spring Boot microservice to AWS EKS 
 
 ## API Endpoints
 
-http://localhost:8080/products (for local testing)
+### 1. Get All Products with Pod Information
+**Endpoint:** `GET /products`
 
-http://{{$serviceLoadBalancerURL}}:8080/products (cloud)
+**Description:** Returns a list of all products along with the Kubernetes pod name and namespace where the request was processed.
+
+**Local Testing:**
+```
+http://localhost:8080/products
+```
+
+**AWS EKS (Cloud):**
+```
+http://<service-load-balancer-url>:8080/products
+```
+<img width="1477" height="260" alt="image" src="https://github.com/user-attachments/assets/63fef5b5-0be3-4b50-b794-58035744cfb5" />
+
+
+**Response Example:**
+```json
+{
+  "podName": "spring-boot-products-5d4f7c8b9-abc12",
+  "podNamespace": "default",
+  "products": [
+    {
+      "id": 1,
+      "name": "Widget",
+      "description": "Small widget for daily use",
+      "price": 19.99
+    },
+    {
+      "id": 2,
+      "name": "Gadget",
+      "description": "Multi-purpose gadget",
+      "price": 29.95
+    },
+    {
+      "id": 3,
+      "name": "Thingamajig",
+      "description": "Useful thingamajig",
+      "price": 14.50
+    }
+  ]
+}
+```
+
+**Response Fields:**
+- `podName` - The Kubernetes pod name where the application is running
+- `podNamespace` - The Kubernetes namespace (default is "default")
+- `products` - Array of product objects with id, name, description, and price
+
+---
+
+### 2. Get Server Configuration
+**Endpoint:** `GET /server/config`
+
+**Description:** Returns the pod name and namespace information for the running application.
+
+**Local Testing:**
+```
+http://localhost:8080/server/config
+```
+
+**AWS EKS (Cloud):**
+```
+http://<service-load-balancer-url>:8080/server/config
+```
+
+**Response Example:**
+```json
+{
+  "podName": "spring-boot-products-5d4f7c8b9-abc12",
+  "podNamespace": "default"
+}
+```
+
+**Use Case:** Useful for debugging and verifying which pod/replica processed your request in a multi-replica deployment.
 
 ## Deployment
 [how the pipeline works]
